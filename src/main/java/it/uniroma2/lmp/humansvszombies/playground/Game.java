@@ -65,7 +65,12 @@ public class Game
     public void playGame(int turnsNumber)
     {
         for(int step = 1; step <= turnsNumber && view.isViable(currentField); step++) {
-            playOneTurn();
+            try {
+				playOneTurn();
+				Thread.sleep(10000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
     }
     
