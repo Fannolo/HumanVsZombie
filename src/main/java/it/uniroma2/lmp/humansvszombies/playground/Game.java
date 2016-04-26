@@ -2,6 +2,7 @@ package it.uniroma2.lmp.humansvszombies.playground;
 
 import it.uniroma2.lmp.humansvszombies.actors.HuberZombie;
 import it.uniroma2.lmp.humansvszombies.actors.Human;
+import it.uniroma2.lmp.humansvszombies.actors.Munitions;
 import it.uniroma2.lmp.humansvszombies.actors.Zombie;
 import it.uniroma2.lmp.humansvszombies.gui.GameView;
 //import it.uniroma2.lmp.humansvszombies.actors.Actor;
@@ -20,6 +21,7 @@ public class Game {
 	private List<Human> humans;
 	private List<Zombie> zombies;
 	private List<HuberZombie> huberZombies;
+	private List<Munitions> munitions;
 
 	// Campo da gioco corrente
 	private Field currentField;
@@ -63,7 +65,7 @@ public class Game {
 		for (int step = 1; step <= turnsNumber && view.isViable(currentField); step++) {
 			try {
 				playOneTurn();
-//				Thread.sleep(500);
+				Thread.sleep(5000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -105,7 +107,7 @@ public class Game {
 		zombies.clear();
 		currentField.clear();
 		updatedField.clear();
-		actorGenerator.populate(currentField, humans, zombies, huberZombies);
+		actorGenerator.populate(currentField, humans, zombies, huberZombies,munitions);
 
 		// Aggiorna la visualizzazione del campo da gioco
 		view.showStatus(turn, currentField);

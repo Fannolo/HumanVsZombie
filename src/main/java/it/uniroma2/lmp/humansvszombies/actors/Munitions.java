@@ -4,11 +4,12 @@ import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
 
 public class Munitions {
-	private boolean picked = true;
+	private boolean alive = true;
 
 	private Location location;
 
 	public void act(Field currentField, Field updatedField) {
+		
 	}
 
 	public Location getLocation() {
@@ -24,10 +25,10 @@ public class Munitions {
 	}
 
 	public boolean isAlive() {
-		return picked;
+		return alive;
 	}
 
-	public void setAlive(boolean picked) {
-		this.picked = picked;
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 }
