@@ -37,21 +37,21 @@ public class ActorGenerator {
 		field.clear();
 		for (int row = 0; row < field.getDepth(); row++) {
 			for (int col = 0; col < field.getWidth(); col++) {
-				if (rand.nextDouble() <= 0.2) {
-					Human human = new Human();
-					human.setLocation(row, col);
-					humans.add(human);
-					field.place(human);
+				if (rand.nextDouble() <= 0.25) {
+					HuberZombie huberZombie = new HuberZombie();
+					huberZombie.setLocation(row, col);
+					huberZombies.add(huberZombie);
+					field.place(huberZombie);
 				} else if (rand.nextDouble() <= 0.5) {
 					Zombie zombie = new Zombie();
 					zombie.setLocation(row, col);
 					zombies.add(zombie);
 					field.place(zombie);
-				} else if (rand.nextDouble() <= 0.8) {
-					HuberZombie huberZombie = new HuberZombie();
-					huberZombie.setLocation(row, col);
-					huberZombies.add(huberZombie);
-					field.place(huberZombie);
+				} else if (rand.nextDouble() <= 1) {
+					Human human = new Human();
+					human.setLocation(row, col);
+					humans.add(human);
+					field.place(human);
 				}
 			}
 		}

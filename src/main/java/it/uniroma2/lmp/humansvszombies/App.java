@@ -10,6 +10,6 @@ public class App
     public static void main( String[] args )
     {
         Game game = new Game();
-        game.playGame(50);
+        game.playGame(5000);
     }
 }
