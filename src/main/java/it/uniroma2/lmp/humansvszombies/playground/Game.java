@@ -3,7 +3,7 @@ package it.uniroma2.lmp.humansvszombies.playground;
 import it.uniroma2.lmp.humansvszombies.actors.Human;
 import it.uniroma2.lmp.humansvszombies.actors.Zombie;
 import it.uniroma2.lmp.humansvszombies.gui.GameView;
-import it.uniroma2.lmp.humansvszombies.actors.Actor;
+//import it.uniroma2.lmp.humansvszombies.actors.Actor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
