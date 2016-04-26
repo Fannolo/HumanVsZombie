@@ -1,5 +1,6 @@
 package it.uniroma2.lmp.humansvszombies.playground;
 
+import it.uniroma2.lmp.humansvszombies.actors.HuberZombie;
 import it.uniroma2.lmp.humansvszombies.actors.Human;
 import it.uniroma2.lmp.humansvszombies.actors.Zombie;
 
@@ -55,6 +56,10 @@ public class Field
         }
         if(actor instanceof Zombie){
             Location location = ((Zombie)actor).getLocation();
+            field[location.getRow()][location.getCol()] = actor;
+        }
+        if(actor instanceof HuberZombie){
+            Location location = ((HuberZombie)actor).getLocation();
             field[location.getRow()][location.getCol()] = actor;
         }
     }
