@@ -45,7 +45,7 @@ public class HuberZombie {
 			if (actor instanceof Human) {
 				Human human = (Human) actor;
 				human.infectedHuman(updatedField);
-				return;
+//				return;
 			}
 		}
 	}
