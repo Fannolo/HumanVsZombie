@@ -4,10 +4,10 @@ import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
 
 public class Munitions {
-	private boolean alive = true;
 
+	private boolean alive = true;
 	private Location location;
-	
+
 	public Location getLocation() {
 		return location;
 	}
