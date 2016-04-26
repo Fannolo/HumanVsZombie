@@ -5,26 +5,7 @@ import java.util.Iterator;
 import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
 
-public class HuberZombie {
-
-	private boolean alive = true;
-	private Location location;
-
-	public void act(Field currentField, Field updatedField) {
-
-		if (isAlive()) {
-			// Cerca umano da infettare
-			findHumansToInfect(currentField, getLocation(), updatedField);
-			// Sposta lo zombie alla ricerca di altri umani
-			Location newLocation = updatedField.freeAdjacentLocation(getLocation());
-
-			if (newLocation != null) {
-				setLocation(newLocation);
-				updatedField.place(this); // sets location
-			}
-		}
-
-	}
+public class HuberZombie extends Zombie {
 
 	/**
 	 * Metodo per la ricerca degli umani da infettare
@@ -45,32 +26,7 @@ public class HuberZombie {
 			if (actor instanceof Human) {
 				Human human = (Human) actor;
 				human.infectedHuman(updatedField);
-//				return;
 			}
 		}
-	}
-
-	public void setDead() {
-		alive = false;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public void setLocation(int row, int col) {
-		this.location = new Location(row, col);
-	}
-
-	public boolean isAlive() {
-		return alive;
-	}
-
-	public void setAlive(boolean alive) {
-		this.alive = alive;
 	}
 }
