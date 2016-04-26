@@ -12,18 +12,17 @@ public class HuberZombie {
 
 	public void act(Field currentField, Field updatedField) {
 
-		// if (isAlive()) {
-		// // Cerca umano da infettare
-		// findHumansToInfect(currentField, getLocation(), updatedField);
-		// // Sposta lo zombie alla ricerca di altri umani
-		// Location newLocation =
-		// updatedField.freeAdjacentLocation(getLocation());
-		//
-		// if (newLocation != null) {
-		// setLocation(newLocation);
-		// updatedField.place(this); // sets location
-		// }
-		// }
+		if (isAlive()) {
+			// Cerca umano da infettare
+			findHumansToInfect(currentField, getLocation(), updatedField);
+			// Sposta lo zombie alla ricerca di altri umani
+			Location newLocation = updatedField.freeAdjacentLocation(getLocation());
+
+			if (newLocation != null) {
+				setLocation(newLocation);
+				updatedField.place(this); // sets location
+			}
+		}
 
 	}
 
@@ -39,16 +38,16 @@ public class HuberZombie {
 	 */
 	private void findHumansToInfect(Field field, Location location, Field updatedField) {
 
-		// Iterator adjacentLocations = field.adjacentLocations(location);
-		// while (adjacentLocations.hasNext()) {
-		// Location where = (Location) adjacentLocations.next();
-		// Object actor = field.getObjectAt(where);
-		// if (actor instanceof Human) {
-		// Human human = (Human) actor;
-		// human.infectedHuman(updatedField);
-		// return;
-		// }
-		// }
+		Iterator adjacentLocations = field.adjacentLocations(location);
+		while (adjacentLocations.hasNext()) {
+			Location where = (Location) adjacentLocations.next();
+			Object actor = field.getObjectAt(where);
+			if (actor instanceof Human) {
+				Human human = (Human) actor;
+				human.infectedHuman(updatedField);
+				return;
+			}
+		}
 	}
 
 	public void setDead() {

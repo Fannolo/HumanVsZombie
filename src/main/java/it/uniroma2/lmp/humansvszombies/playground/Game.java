@@ -63,7 +63,7 @@ public class Game {
 		for (int step = 1; step <= turnsNumber && view.isViable(currentField); step++) {
 			try {
 				playOneTurn();
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -83,7 +83,9 @@ public class Game {
 		for (Zombie zombie : zombies) {
 			zombie.act(currentField, updatedField);
 		}
-
+		for (HuberZombie huberZombie : huberZombies) {
+			huberZombie.act(currentField, updatedField);
+		}
 		// Aggiorna il campo da gioco per il prossimo turno
 		Field temp = currentField;
 		currentField = updatedField;

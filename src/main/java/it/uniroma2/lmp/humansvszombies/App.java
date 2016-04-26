@@ -11,6 +11,6 @@ public class App
     {
         Game game = new Game();
 
-//        game.playGame(50);
+        game.playGame(5000);
     }
 }
