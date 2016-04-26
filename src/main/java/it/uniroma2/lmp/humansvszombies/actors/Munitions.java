@@ -7,11 +7,7 @@ public class Munitions {
 	private boolean alive = true;
 
 	private Location location;
-
-	public void act(Field currentField, Field updatedField) {
-		
-	}
-
+	
 	public Location getLocation() {
 		return location;
 	}
