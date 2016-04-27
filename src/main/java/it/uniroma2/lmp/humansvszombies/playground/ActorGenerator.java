@@ -24,7 +24,9 @@ public class ActorGenerator {
 		colorMap = new HashMap();
 		colorMap.put(Human.class, Color.BLUE);
 		colorMap.put(Zombie.class, Color.ORANGE);
+		// colore per gli HuberZombie
 		colorMap.put(HuberZombie.class, Color.RED);
+		// colore per le munizioni
 		colorMap.put(Munition.class, Color.BLACK);
 	}
 
