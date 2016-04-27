@@ -91,6 +91,7 @@ public class FieldStats {
 	 * @return true se la partita deve continaure
 	 */
 
+	
 	private boolean isViableWithMunitionHuberZombie() {
 		Counter infoMunition = (Counter) counters.get(Munition.class);
 		Counter infoHuman = (Counter) counters.get(Human.class);
