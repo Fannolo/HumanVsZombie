@@ -7,9 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 
 /**
  *
@@ -35,7 +32,7 @@ public class GameView extends JFrame
     private HashMap colors;
     // Campo per la statistica
     private FieldStats stats;
-    private JTextField txtTurns;
+    private JTextField txtInsertNumberTurns;
 
     /**
      * Crea la visuale del campo da gioco
@@ -48,29 +45,27 @@ public class GameView extends JFrame
         colors = new HashMap();
 
         setTitle("Humans vs Zombies");
+        stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
-        getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         contents.add(stepLabel);
-        population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
-        contents.add(population);
         contents.add(fieldView, BorderLayout.CENTER);
+        contents.add(population);
         
-        txtTurns = new JTextField();
-        txtTurns.setText("# turns");
-        getContentPane().add(txtTurns);
-        txtTurns.setColumns(10);
+        txtInsertNumberTurns = new JTextField();
+        txtInsertNumberTurns.setMaximumSize(new Dimension(300, 26));
+        txtInsertNumberTurns.setText("Insert number turns");
+        getContentPane().add(txtInsertNumberTurns);
+        txtInsertNumberTurns.setColumns(10);
         
         JButton btnStart = new JButton("Start");
         getContentPane().add(btnStart);
-        
-        JButton btnStop = new JButton("Stop");
-        getContentPane().add(btnStop);
         pack();
         setVisible(true);
     }
