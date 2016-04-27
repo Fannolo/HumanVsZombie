@@ -2,7 +2,7 @@ package it.uniroma2.lmp.humansvszombies.playground;
 
 import it.uniroma2.lmp.humansvszombies.actors.HuberZombie;
 import it.uniroma2.lmp.humansvszombies.actors.Human;
-import it.uniroma2.lmp.humansvszombies.actors.Munitions;
+import it.uniroma2.lmp.humansvszombies.actors.Munition;
 import it.uniroma2.lmp.humansvszombies.actors.Zombie;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class ActorGenerator {
 		colorMap.put(Human.class, Color.BLUE);
 		colorMap.put(Zombie.class, Color.ORANGE);
 		colorMap.put(HuberZombie.class, Color.RED);
-		colorMap.put(Munitions.class, Color.BLACK);
+		colorMap.put(Munition.class, Color.BLACK);
 	}
 
 	/**
@@ -34,13 +34,17 @@ public class ActorGenerator {
 	 * @param field
 	 *            Il campo che deve essere popolato.
 	 */
-	public void populate(Field field, List humans, List zombies, List huberZombies,List munitions) {
+	public void populate(Field field, List humans, List zombies, List huberZombies, List munitions) {
 		Random rand = new Random();
 		field.clear();
 		for (int row = 0; row < field.getDepth(); row++) {
 			for (int col = 0; col < field.getWidth(); col++) {
-
-				if (rand.nextDouble() <= 0.25) {
+				if (rand.nextDouble() <= 0.1) {
+					Munition munition = new Munition();
+					munition.setLocation(row, col);
+					munitions.add(munition);
+					field.place(munition);
+				} else if (rand.nextDouble() <= 0.25) {
 					HuberZombie huberZombie = new HuberZombie();
 					huberZombie.setLocation(row, col);
 					huberZombies.add(huberZombie);
@@ -50,17 +54,11 @@ public class ActorGenerator {
 					zombie.setLocation(row, col);
 					zombies.add(zombie);
 					field.place(zombie);
-					
 				} else if (rand.nextDouble() <= 1) {
 					Human human = new Human();
 					human.setLocation(row, col);
 					humans.add(human);
 					field.place(human);
-				} else if (rand.nextDouble() <= 0){
-					Munitions munition = new Munitions();
-					munition.setLocation(row,col);
-					munitions.add(munition);
-					field.place(munition);
 				}
 			}
 		}

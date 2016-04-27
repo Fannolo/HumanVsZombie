@@ -9,7 +9,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Game game = new Game();
-        game.playGame(50);
+        Game game = new Game(100,100);
+        game.playGame(50000);
     }
 }

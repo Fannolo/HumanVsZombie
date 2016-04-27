@@ -3,7 +3,7 @@ package it.uniroma2.lmp.humansvszombies.actors;
 import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
 
-public class Munitions {
+public class Munition {
 
 	private boolean alive = true;
 	private Location location;
