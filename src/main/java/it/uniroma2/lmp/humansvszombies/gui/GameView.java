@@ -71,8 +71,13 @@ public class GameView extends JFrame {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game game = new Game();
-				game.playGame(Integer.parseInt(txtInsertNumberTurns.getText()));
+				Game game = new Game(50, 50);
+				try {
+					int turns = Integer.parseInt(txtInsertNumberTurns.getText());
+					game.playGame(turns);
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		getContentPane().add(btnStart);

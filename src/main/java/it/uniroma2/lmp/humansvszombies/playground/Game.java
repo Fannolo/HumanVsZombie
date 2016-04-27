@@ -92,7 +92,6 @@ public class Game {
 		for (Munition munition : munitions) {
 			munition.act(currentField, updatedField);
 		}
-		// Codice Inutile
 		// Aggiorna il campo da gioco per il prossimo turno
 		Field temp = currentField;
 		currentField = updatedField;
