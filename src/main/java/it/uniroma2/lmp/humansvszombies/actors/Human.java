@@ -16,14 +16,20 @@ public class Human {
 	// Parametro che rappresenta se l'umano è infettato o no
 	private boolean infected;
 
+	private int munitions = 0;
+
 	public void act(Field currentField, Field updatedField) {
 
 		// Se l'umano è infettato non può fare nulla
 		if (!infected) {
+
+			// raccogli le munizioni
+			findMunitionsToPick(currentField, getLocation());
+
 			// ucci gli zombie adiacenti alla posizione dell'umano
 			findZombieToKill(currentField, getLocation());
 
-			// Sposta l'umano alla ricerca degli zombie
+			// Sposta l'umano alla ricerca degli zombie o di munizioni
 			Location newLocation = updatedField.freeAdjacentLocation(getLocation());
 
 			if (newLocation != null) {
@@ -33,6 +39,29 @@ public class Human {
 
 		}
 
+	}
+
+	/**
+	 * Metodo per la ricerca delle munizioni
+	 * 
+	 * @param field
+	 *            Campo da gioco
+	 * @param location
+	 *            Location dell'umano
+	 */
+
+	public void findMunitionsToPick(Field field, Location location) {
+		Iterator adjacentLocations = field.adjacentLocations(location);
+		while (adjacentLocations.hasNext()) {
+			Location where = (Location) adjacentLocations.next();
+			Object actor = field.getObjectAt(where);
+			if (actor instanceof Munition) {
+				Munition munition = (Munition) actor;
+				munition.setPicked();
+				munitions++;
+				break;
+			}
+		}
 	}
 
 	/**
@@ -57,6 +86,7 @@ public class Human {
 				HuberZombie huberZombie = (HuberZombie) actor;
 				huberZombie.setDead();
 				break;
+
 			}
 		}
 

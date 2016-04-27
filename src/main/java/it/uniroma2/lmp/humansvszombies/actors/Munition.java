@@ -5,8 +5,15 @@ import it.uniroma2.lmp.humansvszombies.playground.Location;
 
 public class Munition {
 
-	private boolean alive = true;
+	private boolean unpicked = true;
 	private Location location;
+
+	public void act(Field currentField, Field updatedField) {
+
+		if (unpicked) {
+			updatedField.place(this);
+		}
+	}
 
 	public Location getLocation() {
 		return location;
@@ -20,11 +27,15 @@ public class Munition {
 		this.location = new Location(row, col);
 	}
 
-	public boolean isAlive() {
-		return alive;
+	public void setPicked() {
+		unpicked = false;
 	}
 
-	public void setAlive(boolean alive) {
-		this.alive = alive;
+	public boolean isUnpicked() {
+		return unpicked;
+	}
+
+	public void setUnpicked(boolean unpicked) {
+		this.unpicked = unpicked;
 	}
 }

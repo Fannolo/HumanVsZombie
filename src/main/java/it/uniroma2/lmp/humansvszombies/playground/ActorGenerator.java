@@ -39,6 +39,7 @@ public class ActorGenerator {
 		field.clear();
 		for (int row = 0; row < field.getDepth(); row++) {
 			for (int col = 0; col < field.getWidth(); col++) {
+
 				if (rand.nextDouble() <= 0.1) {
 					Munition munition = new Munition();
 					munition.setLocation(row, col);
@@ -50,11 +51,12 @@ public class ActorGenerator {
 					huberZombies.add(huberZombie);
 					field.place(huberZombie);
 				} else if (rand.nextDouble() <= 0.5) {
+
 					Zombie zombie = new Zombie();
 					zombie.setLocation(row, col);
 					zombies.add(zombie);
 					field.place(zombie);
-				} else if (rand.nextDouble() <= 1) {
+				} else if (rand.nextDouble() <= 0.85) {
 					Human human = new Human();
 					human.setLocation(row, col);
 					humans.add(human);
