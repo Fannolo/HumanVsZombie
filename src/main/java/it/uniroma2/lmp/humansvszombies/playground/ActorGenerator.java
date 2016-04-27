@@ -56,7 +56,7 @@ public class ActorGenerator {
 					zombie.setLocation(row, col);
 					zombies.add(zombie);
 					field.place(zombie);
-				} else if (rand.nextDouble() <= 0.85) {
+				} else if (rand.nextDouble() <= 0.9) {
 					Human human = new Human();
 					human.setLocation(row, col);
 					humans.add(human);

@@ -66,7 +66,7 @@ public class Game {
 		for (int step = 1; step <= turnsNumber && view.isViable(currentField); step++) {
 			try {
 				playOneTurn();
-				Thread.sleep(5000);
+//				Thread.sleep(5000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
