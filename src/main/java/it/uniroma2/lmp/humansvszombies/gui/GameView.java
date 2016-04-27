@@ -7,173 +7,208 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 /**
  *
- * Rappresentazione grafica della griglia del campo. Questa view visualizza le
- * location come dei rettangoli colorati in base al contenuto della location.
+ * Rappresentazione grafica della griglia del campo.
+ * Questa view visualizza le location come dei rettangoli colorati in base
+ * al contenuto della location.
  *
  */
-public class GameView extends JFrame {
-	// Colore per le caselle vuote
-	private static final Color EMPTY_COLOR = Color.white;
+public class GameView extends JFrame
+{
+    // Colore per le caselle vuote
+    private static final Color EMPTY_COLOR = Color.white;
 
-	// Colore usato per gli oggetti non definiti
-	private static final Color UNKNOWN_COLOR = Color.gray;
+    // Colore usato per gli oggetti non definiti
+    private static final Color UNKNOWN_COLOR = Color.gray;
 
-	private final String STEP_PREFIX = "Step: ";
-	private final String POPULATION_PREFIX = "Pedine: ";
-	private JLabel stepLabel, population;
-	private FieldView fieldView;
+    private final String STEP_PREFIX = "Step: ";
+    private final String POPULATION_PREFIX = "Pedine: ";
+    private JLabel stepLabel, population;
+    private FieldView fieldView;
+    
+    // Una mappa che memorizza i colori delle pedine del gioco
+    private HashMap colors;
+    // Campo per la statistica
+    private FieldStats stats;
+    private JTextField txtTurns;
 
-	// Una mappa che memorizza i colori delle pedine del gioco
-	private HashMap colors;
-	// Campo per la statistica
-	private FieldStats stats;
+    /**
+     * Crea la visuale del campo da gioco
+     * @param height altezza del campo
+     * @param width larghezza del campo
+     */
+    public GameView(int height, int width)
+    {
+        stats = new FieldStats();
+        colors = new HashMap();
 
-	/**
-	 * Crea la visuale del campo da gioco
-	 * 
-	 * @param height
-	 *            altezza del campo
-	 * @param width
-	 *            larghezza del campo
-	 */
-	public GameView(int height, int width) {
-		stats = new FieldStats();
-		colors = new HashMap();
+        setTitle("Humans vs Zombies");
+        
+        setLocation(100, 50);
+        
+        fieldView = new FieldView(height, width);
 
-		setTitle("Humans vs Zombies");
-		stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
-		population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+        Container contents = getContentPane();
+        getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        contents.add(stepLabel);
+        population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+        contents.add(population);
+        contents.add(fieldView, BorderLayout.CENTER);
+        
+        txtTurns = new JTextField();
+        txtTurns.setText("# turns");
+        getContentPane().add(txtTurns);
+        txtTurns.setColumns(10);
+        
+        JButton btnStart = new JButton("Start");
+        getContentPane().add(btnStart);
+        
+        JButton btnStop = new JButton("Stop");
+        getContentPane().add(btnStop);
+        pack();
+        setVisible(true);
+    }
+    
 
-		setLocation(100, 50);
+    public void setColor(Class actorClass, Color color)
+    {
+        colors.put(actorClass, color);
+    }
+    
 
-		fieldView = new FieldView(height, width);
+    public void setColors(Map colorMap)
+    {
+        colors.putAll(colorMap);
+    }
 
-		Container contents = getContentPane();
-		contents.add(stepLabel, BorderLayout.NORTH);
-		contents.add(fieldView, BorderLayout.CENTER);
-		contents.add(population, BorderLayout.SOUTH);
-		pack();
-		setVisible(true);
-	}
 
-	public void setColor(Class actorClass, Color color) {
-		colors.put(actorClass, color);
-	}
+    private Color getColor(Class actorClass)
+    {
+        Color col = (Color)colors.get(actorClass);
+        if(col == null) {
+            return UNKNOWN_COLOR;
+        }
+        else {
+            return col;
+        }
+    }
 
-	public void setColors(Map colorMap) {
-		colors.putAll(colorMap);
-	}
+    /**
+     * Visulizza lo stato corrente del campo
+     * @param turn Turno di gioco
+     * @param field Campo da gioco corrente.
+     */
+    public void showStatus(int turn, Field field)
+    {
+        if(!isVisible())
+            setVisible(true);
 
-	private Color getColor(Class actorClass) {
-		Color col = (Color) colors.get(actorClass);
-		if (col == null) {
-			return UNKNOWN_COLOR;
-		} else {
-			return col;
-		}
-	}
+        stepLabel.setText(STEP_PREFIX + turn);
 
-	/**
-	 * Visulizza lo stato corrente del campo
-	 * 
-	 * @param turn
-	 *            Turno di gioco
-	 * @param field
-	 *            Campo da gioco corrente.
-	 */
-	public void showStatus(int turn, Field field) {
-		if (!isVisible())
-			setVisible(true);
+        stats.reset();
+        fieldView.preparePaint();
+            
+        for(int row = 0; row < field.getDepth(); row++) {
+            for(int col = 0; col < field.getWidth(); col++) {
+                Object actor = field.getObjectAt(row, col);
+                if(actor != null) {
+                    stats.incrementCount(actor.getClass());
+                    fieldView.drawMark(col, row, getColor(actor.getClass()));
+                }
+                else {
+                    fieldView.drawMark(col, row, EMPTY_COLOR);
+                }
+            }
+        }
+        stats.countFinished();
 
-		stepLabel.setText(STEP_PREFIX + turn);
+        population.setText(POPULATION_PREFIX + stats.getActorDetails(field));
+        fieldView.repaint();
+    }
 
-		stats.reset();
-		fieldView.preparePaint();
+    /**
+     * Determina se la simulazione deve continuare o no
+     * @return true se ci sono ancora delle pedine attive
+     */
+    public boolean isViable(Field field)
+    {
+        return stats.isViable(field);
+    }
+    
+    /**
+     * Questa classe fornisce una rappresentazione grafica di una casella
+     * del campo da gioco.
+     */
+    private class FieldView extends JPanel
+    {
+        private final int GRID_VIEW_SCALING_FACTOR = 6;
 
-		for (int row = 0; row < field.getDepth(); row++) {
-			for (int col = 0; col < field.getWidth(); col++) {
-				Object actor = field.getObjectAt(row, col);
-				if (actor != null) {
-					stats.incrementCount(actor.getClass());
-					fieldView.drawMark(col, row, getColor(actor.getClass()));
-				} else {
-					fieldView.drawMark(col, row, EMPTY_COLOR);
-				}
-			}
-		}
-		stats.countFinished();
+        private int gridWidth, gridHeight;
+        private int xScale, yScale;
+        Dimension size;
+        private Graphics g;
+        private Image fieldImage;
 
-		population.setText(POPULATION_PREFIX + stats.getActorDetails(field));
-		fieldView.repaint();
-	}
 
-	/**
-	 * Determina se la simulazione deve continuare o no
-	 * 
-	 * @return true se ci sono ancora delle pedine attive
-	 */
-	public boolean isViable(Field field) {
-		return stats.isViable(field);
-	}
+        public FieldView(int height, int width)
+        {
+            gridHeight = height;
+            gridWidth = width;
+            size = new Dimension(0, 0);
+        }
 
-	/**
-	 * Questa classe fornisce una rappresentazione grafica di una casella del
-	 * campo da gioco.
-	 */
-	private class FieldView extends JPanel {
-		private final int GRID_VIEW_SCALING_FACTOR = 6;
 
-		private int gridWidth, gridHeight;
-		private int xScale, yScale;
-		Dimension size;
-		private Graphics g;
-		private Image fieldImage;
+        public Dimension getPreferredSize()
+        {
+            return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
+                                 gridHeight * GRID_VIEW_SCALING_FACTOR);
+        }
+        
 
-		public FieldView(int height, int width) {
-			gridHeight = height;
-			gridWidth = width;
-			size = new Dimension(0, 0);
-		}
+        public void preparePaint()
+        {
+            if(! size.equals(getSize())) {  // if the size has changed...
+                size = getSize();
+                fieldImage = fieldView.createImage(size.width, size.height);
+                g = fieldImage.getGraphics();
 
-		public Dimension getPreferredSize() {
-			return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR, gridHeight * GRID_VIEW_SCALING_FACTOR);
-		}
+                xScale = size.width / gridWidth;
+                if(xScale < 1) {
+                    xScale = GRID_VIEW_SCALING_FACTOR;
+                }
+                yScale = size.height / gridHeight;
+                if(yScale < 1) {
+                    yScale = GRID_VIEW_SCALING_FACTOR;
+                }
+            }
+        }
+        
 
-		public void preparePaint() {
-			if (!size.equals(getSize())) { // if the size has changed...
-				size = getSize();
-				fieldImage = fieldView.createImage(size.width, size.height);
-				g = fieldImage.getGraphics();
+        public void drawMark(int x, int y, Color color)
+        {
+            g.setColor(color);
+            g.fillRect(x * xScale, y * yScale, xScale-1, yScale-1);
+        }
 
-				xScale = size.width / gridWidth;
-				if (xScale < 1) {
-					xScale = GRID_VIEW_SCALING_FACTOR;
-				}
-				yScale = size.height / gridHeight;
-				if (yScale < 1) {
-					yScale = GRID_VIEW_SCALING_FACTOR;
-				}
-			}
-		}
 
-		public void drawMark(int x, int y, Color color) {
-			g.setColor(color);
-			g.fillRect(x * xScale, y * yScale, xScale - 1, yScale - 1);
-		}
-
-		public void paintComponent(Graphics g) {
-			if (fieldImage != null) {
-				Dimension currentSize = getSize();
-				if (size.equals(currentSize)) {
-					g.drawImage(fieldImage, 0, 0, null);
-				} else {
-					// Rescale the previous image.
-					g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
-				}
-			}
-		}
-	}
+        public void paintComponent(Graphics g)
+        {
+            if(fieldImage != null) {
+                Dimension currentSize = getSize();
+                if(size.equals(currentSize)) {
+                    g.drawImage(fieldImage, 0, 0, null);
+                }
+                else {
+                    // Rescale the previous image.
+                    g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
+                }
+            }
+        }
+    }
 }
