@@ -35,11 +35,10 @@ public class GameView extends JFrame {
 	private FieldStats stats;
 	private JTextField txtInsertNumberTurns;
 	private JLabel lblNewLabel;
-	private Game game;
-	
-	public void main(String[] args) {
+	private static Game game;
+
+	public static void main(String[] args) {
 		game = new Game(50,50);
-		
 	}
 
 	/**
