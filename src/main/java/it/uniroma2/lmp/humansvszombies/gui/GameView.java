@@ -34,6 +34,7 @@ public class GameView extends JFrame {
 	// Campo per la statistica
 	private FieldStats stats;
 	private JTextField txtInsertNumberTurns;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Crea la visuale del campo da gioco
@@ -44,6 +45,7 @@ public class GameView extends JFrame {
 	 *            larghezza del campo
 	 */
 	public GameView(int height, int width) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setPreferredSize(new Dimension(450, 500));
 		stats = new FieldStats();
 		colors = new HashMap();
@@ -76,10 +78,14 @@ public class GameView extends JFrame {
 					int turns = Integer.parseInt(txtInsertNumberTurns.getText());
 					game.playGame(turns);
 				} catch (NumberFormatException e1) {
-					e1.printStackTrace();
+					lblNewLabel.setVisible(true);
 				}
 			}
 		});
+		
+		lblNewLabel = new JLabel("You did not insert a number!");
+		lblNewLabel.setVisible(false);
+		getContentPane().add(lblNewLabel);
 		getContentPane().add(btnStart);
 		pack();
 		setVisible(true);
