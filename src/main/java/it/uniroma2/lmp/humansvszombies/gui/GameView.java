@@ -35,6 +35,12 @@ public class GameView extends JFrame {
 	private FieldStats stats;
 	private JTextField txtInsertNumberTurns;
 	private JLabel lblNewLabel;
+	private Game game;
+	
+	public void main(String[] args) {
+		game = new Game(50,50);
+		
+	}
 
 	/**
 	 * Crea la visuale del campo da gioco
@@ -71,9 +77,9 @@ public class GameView extends JFrame {
 		txtInsertNumberTurns.setColumns(10);
 
 		JButton btnStart = new JButton("Start");
+
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game game = new Game(50, 50);
 				try {
 					int turns = Integer.parseInt(txtInsertNumberTurns.getText());
 					game.playGame(turns);
@@ -82,7 +88,6 @@ public class GameView extends JFrame {
 				}
 			}
 		});
-		
 		lblNewLabel = new JLabel("You did not insert a number!");
 		lblNewLabel.setVisible(false);
 		getContentPane().add(lblNewLabel);
@@ -208,4 +213,5 @@ public class GameView extends JFrame {
 			}
 		}
 	}
+
 }
