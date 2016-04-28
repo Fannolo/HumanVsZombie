@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
+
 @SuppressWarnings("rawtypes")
 public class HuberZombie extends Zombie {
 

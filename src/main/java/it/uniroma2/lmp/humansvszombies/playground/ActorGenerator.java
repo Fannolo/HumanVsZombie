@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-@SuppressWarnings({"rawtypes", "unchecked"})
+
+@SuppressWarnings({ "rawtypes", "unchecked" })
 /**
  *
  * Questa classe si occupa di popolare il campo con gli attori del sistema

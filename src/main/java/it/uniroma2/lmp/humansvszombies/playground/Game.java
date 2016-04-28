@@ -9,7 +9,8 @@ import it.uniroma2.lmp.humansvszombies.gui.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
-@SuppressWarnings({"rawtypes", "unchecked"})
+
+@SuppressWarnings({ "rawtypes", "unchecked" })
 /**
  * Gioco HumansVsZombie, basato su turni, all'interno di un campo da gioco.
  *
