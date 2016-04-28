@@ -9,7 +9,7 @@ import it.uniroma2.lmp.humansvszombies.utils.Counter;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
+@SuppressWarnings({"rawtypes","unchecked"})
 /**
  * Questa classe colleziona le statistiche del gico
  *

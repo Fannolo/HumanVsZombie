@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 /**
  *
  * Questa classe si occupa di popolare il campo con gli attori del sistema
@@ -22,11 +22,13 @@ public class ActorGenerator {
 
 	public ActorGenerator() {
 		colorMap = new HashMap();
+		// colore per gli umani
 		colorMap.put(Human.class, Color.BLUE);
+		// colore per gli zombie
 		colorMap.put(Zombie.class, Color.ORANGE);
-		// colore per gli HuberZombie
+		// colore scelto per gli HuberZombie
 		colorMap.put(HuberZombie.class, Color.RED);
-		// colore per le munizioni
+		// colore scelto per le munizioni
 		colorMap.put(Munition.class, Color.BLACK);
 	}
 
@@ -41,7 +43,6 @@ public class ActorGenerator {
 		field.clear();
 		for (int row = 0; row < field.getDepth(); row++) {
 			for (int col = 0; col < field.getWidth(); col++) {
-
 				if (rand.nextDouble() <= 0.1) {
 					Munition munition = new Munition();
 					munition.setLocation(row, col);
@@ -53,7 +54,6 @@ public class ActorGenerator {
 					huberZombies.add(huberZombie);
 					field.place(huberZombie);
 				} else if (rand.nextDouble() <= 0.4) {
-
 					Zombie zombie = new Zombie();
 					zombie.setLocation(row, col);
 					zombies.add(zombie);

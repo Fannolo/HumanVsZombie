@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-
+@SuppressWarnings({"rawtypes","unchecked"})
 /**
  * Questa classe rappresenta il campo da gioco. Il campo da gioco è
  * rappesentatno da una griglia di posizioni. Ogni posizione può contenere un

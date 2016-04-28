@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+@SuppressWarnings({ "unchecked", "serial", "rawtypes" })
 
 /**
  *
@@ -39,7 +40,7 @@ public class GameView extends JFrame {
 	private JButton btnNewButton;
 
 	public static void main(String[] args) {
-		game = new Game(50,50);
+		game = new Game(50, 50);
 	}
 
 	/**
@@ -50,11 +51,12 @@ public class GameView extends JFrame {
 	 * @param width
 	 *            larghezza del campo
 	 */
+
 	public GameView(int height, int width) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setPreferredSize(new Dimension(450, 500));
 		stats = new FieldStats();
-		colors = new HashMap();
+		colors = new HashMap<Object, Object>();
 
 		setTitle("Humans vs Zombies");
 		stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
@@ -92,7 +94,7 @@ public class GameView extends JFrame {
 		lblNewLabel.setVisible(false);
 		getContentPane().add(lblNewLabel);
 		getContentPane().add(btnStart);
-		
+
 		btnNewButton = new JButton("Reset");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,15 +106,15 @@ public class GameView extends JFrame {
 		setVisible(true);
 	}
 
-	public void setColor(Class actorClass, Color color) {
+	public void setColor(Class<?> actorClass, Color color) {
 		colors.put(actorClass, color);
 	}
 
-	public void setColors(Map colorMap) {
+	public void setColors(Map<?, ?> colorMap) {
 		colors.putAll(colorMap);
 	}
 
-	private Color getColor(Class actorClass) {
+	private Color getColor(Class<? extends Object> actorClass) {
 		Color col = (Color) colors.get(actorClass);
 		if (col == null) {
 			return UNKNOWN_COLOR;

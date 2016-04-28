@@ -4,10 +4,10 @@ import java.util.Iterator;
 
 import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
-
+@SuppressWarnings("rawtypes")
 public class HuberZombie extends Zombie {
 
-	private void findHumansToInfect(Field field, Location location, Field updatedField) {
+	void findHumansToInfect(Field field, Location location, Field updatedField) {
 		Iterator adjacentLocations = field.adjacentLocations(location);
 		while (adjacentLocations.hasNext()) {
 			Location where = (Location) adjacentLocations.next();

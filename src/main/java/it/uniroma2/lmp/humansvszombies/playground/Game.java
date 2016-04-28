@@ -8,9 +8,8 @@ import it.uniroma2.lmp.humansvszombies.gui.GameView;
 //import it.uniroma2.lmp.humansvszombies.actors.Actor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 /**
  * Gioco HumansVsZombie, basato su turni, all'interno di un campo da gioco.
  *

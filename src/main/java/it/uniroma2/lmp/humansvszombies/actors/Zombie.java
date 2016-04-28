@@ -4,7 +4,7 @@ import it.uniroma2.lmp.humansvszombies.playground.Field;
 import it.uniroma2.lmp.humansvszombies.playground.Location;
 
 import java.util.Iterator;
-
+@SuppressWarnings("rawtypes")
 /**
  * Classe che rappresenta gli zombie
  *
