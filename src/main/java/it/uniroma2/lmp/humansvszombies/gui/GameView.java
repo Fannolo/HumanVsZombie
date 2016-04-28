@@ -36,6 +36,7 @@ public class GameView extends JFrame {
 	private JTextField txtInsertNumberTurns;
 	private JLabel lblNewLabel;
 	private static Game game;
+	private JButton btnNewButton;
 
 	public static void main(String[] args) {
 		game = new Game(50,50);
@@ -91,6 +92,14 @@ public class GameView extends JFrame {
 		lblNewLabel.setVisible(false);
 		getContentPane().add(lblNewLabel);
 		getContentPane().add(btnStart);
+		
+		btnNewButton = new JButton("Reset");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.reset();
+			}
+		});
+		getContentPane().add(btnNewButton);
 		pack();
 		setVisible(true);
 	}

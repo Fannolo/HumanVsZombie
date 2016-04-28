@@ -47,18 +47,18 @@ public class ActorGenerator {
 					munition.setLocation(row, col);
 					munitions.add(munition);
 					field.place(munition);
-				} else if (rand.nextDouble() <= 0.25) {
+				} else if (rand.nextDouble() <= 0.2) {
 					HuberZombie huberZombie = new HuberZombie();
 					huberZombie.setLocation(row, col);
 					huberZombies.add(huberZombie);
 					field.place(huberZombie);
-				} else if (rand.nextDouble() <= 0.5) {
+				} else if (rand.nextDouble() <= 0.4) {
 
 					Zombie zombie = new Zombie();
 					zombie.setLocation(row, col);
 					zombies.add(zombie);
 					field.place(zombie);
-				} else if (rand.nextDouble() <= 0.8) {
+				} else if (rand.nextDouble() <= 0.65) {
 					Human human = new Human();
 					human.setLocation(row, col);
 					humans.add(human);
